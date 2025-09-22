@@ -7,7 +7,6 @@ import FounderSection from '../components/landing/FounderSection';
 import FeaturesSection from '../components/landing/FeaturesSection';
 import FAQSection from '../components/landing/FAQSection';
 import CTASection from '../components/landing/CTASection';
-import AITestButton from '../components/AITestButton';
 
 const LandingPage: React.FC = () => {
   return (
@@ -22,7 +21,6 @@ const LandingPage: React.FC = () => {
         <CTASection />
       </main>
       <Footer />
-      <AITestButton />
     </>
   );
 };
