@@ -753,7 +753,9 @@ class SmartContextManager {
       .map(d => d.shopInfo.name)
       .filter(Boolean)
       .reduce((acc, shop) => {
-        acc[shop] = (acc[shop] || 0) + 1;
+        if (shop) {
+          acc[shop] = (acc[shop] || 0) + 1;
+        }
         return acc;
       }, {} as { [key: string]: number });
 

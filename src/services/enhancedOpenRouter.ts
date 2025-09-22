@@ -493,6 +493,9 @@ export async function processServiceText(
   const startTime = performance.now();
   const id = generateId();
 
+  // First, apply local corrections for immediate improvement (outside try-catch for fallback access)
+  const localCorrection = correctAndStandardizeService(userInput);
+
   try {
     const contextPrompt = userContext ? `
     User Context:
@@ -501,9 +504,6 @@ export async function processServiceText(
     - Service radius: ${userContext.preferences?.serviceRadius} miles
     - Previous services: ${userContext.serviceHistory?.favoriteCategories?.join(', ')}
     ` : '';
-
-    // First, apply local corrections for immediate improvement
-    const localCorrection = correctAndStandardizeService(userInput);
     console.log('Local correction applied:', {
       original: userInput,
       corrected: localCorrection.corrected,
@@ -705,7 +705,7 @@ export async function processServiceText(
         category: 'General',
         urgencyLevel: 'medium',
         recommendedAction: 'Get professional consultation',
-        confidence: createConfidence(localCorrection.confidence, 'local_correction')
+        confidence: createConfidence(localCorrection.confidence, 'pattern_match')
       },
       vehicleInfo: { confidence: createConfidence(0, 'ai_extraction') },
       pricing: { currency: 'USD', breakdown: [], confidence: createConfidence(0, 'ai_extraction') },
